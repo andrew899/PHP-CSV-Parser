@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function ()
+{
+    return Redirect::route('home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Create file upload form
+Route::get('/upload-file', 'FileUpload@createForm');
+
+// Store file
+Route::post('/upload-file', 'FileUpload@fileUpload')->name('fileUpload');
+
+Route::post('/parse', 'ParseController@parse')->name('parse');
+
+Route::post('/preview/file', 'ParseController@previewFile')->name('previewFile');
+Route::post('/preview/path', 'ParseController@previewPath')->name('previewPath');
