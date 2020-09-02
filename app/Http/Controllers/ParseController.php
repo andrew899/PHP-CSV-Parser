@@ -32,7 +32,7 @@ class ParseController extends Controller
 
     public function parse(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $filePath = $request->get('filePath');
         $colNumber = $this->get_numeric($request->get('colSelect'));
         //dd($colNumber);
