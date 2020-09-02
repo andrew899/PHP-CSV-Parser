@@ -32,5 +32,4 @@ Route::post('/upload-file', 'FileUpload@fileUpload')->name('fileUpload');
 
 Route::post('/parse', 'ParseController@parse')->name('parse');
 
-Route::post('/preview/file', 'ParseController@previewFile')->name('previewFile');
-Route::post('/preview/path', 'ParseController@previewPath')->name('previewPath');
+Route::post('/preview', 'ParseController@preview')->name('preview');

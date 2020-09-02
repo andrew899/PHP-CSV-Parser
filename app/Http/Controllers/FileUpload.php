@@ -22,9 +22,7 @@ class FileUpload extends Controller
 
         if($req->file()) {
             $fileName = time().'_'.$req->file->getClientOriginalName();
-            $filePath = $req->file('file');//->storeAs('uploads', $fileName, 'public');
-            $disk = Storage::disk('local');
-            $disk->put($fileName, fopen($filePath, 'r+'));
+            $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
 
 
             $fileModel->name = $fileName;

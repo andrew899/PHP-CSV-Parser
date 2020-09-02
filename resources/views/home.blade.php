@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="form-group">
-        <form action="{{ route('previewFile') }}" method="post">
+        <form action="{{ route('preview') }}" method="post">
             @csrf
             <label for="fileSelect">Select file</label>
-            <select class="form-control" id="fileSelect" name="fileSelect">
+            <select class="form-control" id="fileSelect" name="file">
                 <option disabled selected>-- Choose file from local storage --</option>
                 @foreach($files as $key => $data)
                 <option value="{{$data->name}}">{{$data->name}}</option>
@@ -19,10 +19,10 @@
 
 <div class="container">
     <div class="form-group">
-        <form action="{{ route('previewPath') }}" method="post">
+        <form action="{{ route('preview') }}" method="post">
             @csrf
             <label for="inputPath">Path to file: </label>
-            <input class="form-control" id="inputPath" name="filePath" placeholder="Input full path to file..." type="text">
+            <input class="form-control" id="inputPath" name="file" placeholder="Input full path to file..." type="text">
             <button type="submit" class="btn btn-primary btn-block">Preview</button>
         </form>
     </div>

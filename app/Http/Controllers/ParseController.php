@@ -35,7 +35,6 @@ class ParseController extends Controller
         //dd($request->all());
         $filePath = $request->get('filePath');
         $colNumber = $this->get_numeric($request->get('colSelect'));
-        //dd($colNumber);
         $colName = '';
         $result = 0;
         $rows = 0;
@@ -62,34 +61,34 @@ class ParseController extends Controller
                 'result' => $result));
     }
 
-    public function previewFile(Request $request)
+    public function preview(Request $request)
     {
-        $data = array();
-        return view('preview')->with('data', $data);
-    }
+        $file = $request->get('file');
 
-    public function previewPath(Request $request)
-    {
-
-        $filePath = $request->get('filePath');
-
-        if(empty($filePath))
+        if(empty($file))
         {
             return redirect(route('home'));
         }
 
+        $data = $this->getPreviewData($file);
+
+        return view('preview')->with('data', $data);
+    }
+
+    private function getPreviewData($file)
+    {
         $data = array();
-        array_push($data, $filePath);
-        if (($handle = fopen($filePath, "r")) !== FALSE)
+        array_push($data, 'public/storage/uploads/' . $file);
+        if (($handle = fopen('public/storage/uploads/' . $file, "r")) !== FALSE)
         {
-           for($i = 1; $i <=10; $i++)
-           {
-               array_push($data, fgetcsv($handle));
-           }
+            for($i = 1; $i <=10; $i++)
+            {
+                array_push($data, fgetcsv($handle));
+            }
 
             fclose($handle);
         }
 
-        return view('preview')->with('data', $data);
+        return $data;
     }
 }
